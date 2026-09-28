@@ -19,7 +19,8 @@ on a phone, and progress is saved in the browser you use it in.
   other Stephens).
 - **Browse**: every member by party, searchable.
 - **Small batches**: one guided path, party by party, in fixed batches of 8.
-  You stay on a batch until you choose to move on, and each new person is
+  You stay on a batch until you choose to move on with the "Next batch"
+  button, which turns green once all 8 are known. Each new person is
   introduced before you're quizzed on them.
 - **Read aloud**: a speaker button beside each name and riding uses the
   browser's built-in voice.
