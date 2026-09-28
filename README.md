@@ -15,9 +15,10 @@ on a phone, and progress is saved in the browser you use it in.
   name → riding. For the cabinet: minister ↔ portfolio, face → portfolio and
   face → name. Wrong answers are chosen to be hard (other Scarborough ridings,
   other Stephens).
-- **Flashcards**: see a face, say the name, flip, mark "Got it" or "Again".
+- **Flashcards**: see a face, say the name out loud, tap "Show answer", then
+  answer "Did you know it?". "No, not yet" brings that person back sooner.
 - **Browse**: every member by party, searchable.
-- **Small batches**: the guided path goes party by party in fixed batches of 8.
+- **Small batches**: one guided path, party by party, in fixed batches of 8.
   You stay on a batch until you choose to move on, and each new person is
   introduced before you're quizzed on them.
 - **Read aloud**: a speaker button beside each name and riding uses the

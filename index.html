@@ -152,6 +152,10 @@ nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)
 .back h2{font:700 24px/1.15 var(--display);margin:0;text-wrap:balance}
 .flash-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .flash-actions button{padding:12px;border-radius:10px;font-weight:600;cursor:pointer}
+.flash-actions.one{grid-template-columns:1fr}
+.flash-actions.one .btn-2{padding:12px}
+.flash-ask{margin:14px 0 0;text-align:center;font-weight:700;font-size:16px}
+.flash-hint{text-align:center;margin-top:10px}
 .again{border:1px solid var(--bad);background:var(--bad-soft);color:var(--bad)}
 .gotit{border:1px solid var(--good);background:var(--good-soft);color:var(--good)}
 @media (prefers-reduced-motion: reduce){.flash-inner{transition:none}}
@@ -214,8 +218,7 @@ nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)
   <summary><span id="settings-sum"></span><span class="change">Change</span></summary>
   <section class="controls" id="controls">
     <div class="row" id="deck-row"><span class="lbl">Study</span></div>
-    <div class="row" id="learn-row"><span class="lbl">Learn</span>
-      <select id="group" class="select" aria-label="Which group to learn"></select>
+    <div class="row" id="learn-row"><span class="lbl">Practise</span>
       <span class="row" id="pace"></span>
     </div>
     <div class="row" id="batch-row"><span class="lbl">Batch</span>
@@ -301,13 +304,10 @@ const PORTFOLIOS = CABINET.flatMap(c => c.roles.map(r => ({ id: "p:" + r, role: 
 const personOf = it => it.m || it;
 
 /* ---------- groups ---------- */
-const STARTER = ["Etobicoke North", "Davenport", "Guelph", "Flamborough-Glanbrook", "Dufferin-Caledon", "Pickering-Uxbridge"].map(r => byRiding[r]);
-const CLUSTERS = ["Brampton", "Mississauga", "Scarborough", "Etobicoke", "Don Valley", "Toronto", "Markham", "Ottawa", "Hamilton", "London", "Kitchener", "Niagara"]
-  .map(p => ({ id: "c-" + p.replace(" ", "-").toLowerCase(), label: p, people: MPPS.filter(m => m.riding.startsWith(p)) }));
-const OPPOSITION = MPPS.filter(m => !["PC", "Speaker"].includes(m.party));
+const CITIES = ["Brampton", "Mississauga", "Scarborough", "Etobicoke", "Don Valley", "Toronto", "Markham", "Ottawa", "Hamilton", "London", "Kitchener", "Niagara"];
 const uniq = arr => [...new Set(arr)];
 /* within a party: leaders and ministers first, then city by city so neighbours come together */
-const CITY_ORDER = uniq([...MINISTERS, ...CLUSTERS.flatMap(c => c.people), ...MPPS]);
+const CITY_ORDER = uniq([...MINISTERS, ...CITIES.flatMap(c => MPPS.filter(m => m.riding.startsWith(c))), ...MPPS]);
 const LEADERS = ["Etobicoke North", "Davenport", "Guelph"].map(r => byRiding[r]);
 const rank = p => (LEADERS.includes(p) ? -1 : CITY_ORDER.indexOf(p));
 const PARTY_INFO = {
@@ -323,24 +323,10 @@ const ofParty = party => MPPS.filter(m => m.party === party).sort((a, b) => rank
 const PATH_PARTIES = ["Speaker", "Green", "Independent", "Liberal", "NDP", "PC"];
 const PATH = PATH_PARTIES.flatMap(ofParty);
 
-const GROUPS = {
-  mpps: [
-    { id: "path", label: "Guided path, party by party (124)", people: PATH },
-    { id: "p-pc", label: `PC, Government (${ofParty("PC").length})`, people: ofParty("PC") },
-    { id: "p-ndp", label: `NDP, Official Opposition (${ofParty("NDP").length})`, people: ofParty("NDP") },
-    { id: "p-lib", label: `Liberal (${ofParty("Liberal").length})`, people: ofParty("Liberal") },
-    { id: "p-small", label: "Green, Independent and Speaker (5)", people: [...ofParty("Speaker"), ...ofParty("Green"), ...ofParty("Independent")] },
-    { id: "cabinet", label: "Cabinet (36)", people: MINISTERS },
-    { id: "starter", label: "Starter six", people: STARTER },
-    { id: "opposition", label: "All opposition (45)", people: OPPOSITION },
-    ...CLUSTERS,
-    { id: "all", label: "Everyone, A–Z by riding", people: MPPS },
-  ],
-  cabinet: [
-    { id: "path", label: "All 36, most senior first", people: MINISTERS },
-    { id: "ministers", label: "Ministers only", people: MINISTERS.filter(m => !m.associate) },
-    { id: "associates", label: "Associate ministers", people: MINISTERS.filter(m => m.associate) },
-  ],
+/* one learning order per deck; "path" is also the key batch positions are saved under */
+const PATHS = {
+  mpps: { id: "path", label: "Guided path, party by party", people: PATH },
+  cabinet: { id: "path", label: "Most senior first", people: MINISTERS },
 };
 const BATCH = 8;
 
@@ -383,11 +369,9 @@ let state = {
   pace: store.get("pace", "batch"),
   batch: store.get("batch", {}),
   autoSay: store.get("autoSay", false),
-  group: { mpps: store.get("group-mpps", "path"), cabinet: store.get("group-cabinet", "path") },
 };
 if (!["batch", "sofar", "all"].includes(state.pace)) state.pace = "batch";
 if (!MODES[state.deck].some(m => m.id === state.mode)) state.mode = MODES[state.deck][0].id;
-for (const d of ["mpps", "cabinet"]) if (!GROUPS[d].some(g => g.id === state.group[d])) state.group[d] = "path";
 
 function itemsFor(mode) {
   if (mode === "port-min") return PORTFOLIOS;
@@ -410,14 +394,14 @@ function personKnown(p, modes) {
 }
 
 /* ---------- batching ---------- */
-const currentGroup = () => GROUPS[state.deck].find(g => g.id === state.group[state.deck]);
+const currentGroup = () => PATHS[state.deck];
 /* a group is cut into fixed batches of 8; he stays on one until he chooses to move on */
 function batchesOf(group) {
   const out = [];
   for (let i = 0; i < group.people.length; i += BATCH) out.push(group.people.slice(i, i + BATCH));
   return out;
 }
-const batchKey = () => state.deck + ":" + state.group[state.deck];
+const batchKey = () => state.deck + ":path";
 function batchIndex() {
   const list = batchesOf(currentGroup());
   let i = state.batch[batchKey()];
@@ -569,17 +553,13 @@ function renderControls() {
     state.deck = d.id; state.mode = MODES[d.id][0].id; saveState(); refresh();
   }));
 
-  const sel = document.getElementById("group");
-  sel.innerHTML = GROUPS[state.deck].map(g =>
-    `<option value="${g.id}"${g.id === state.group[state.deck] ? " selected" : ""}>${esc(g.label)}${g.id.startsWith("c-") ? ` (${g.people.length})` : ""}</option>`).join("");
-
   const paceRow = document.getElementById("pace");
   paceRow.innerHTML = "";
   const setPace = p => () => { state.pace = p; saveState(); refresh(); };
   paceRow.append(
     chip("pace-batch", "One batch", state.pace === "batch", setPace("batch")),
     chip("pace-sofar", "All batches so far", state.pace === "sofar", setPace("sofar")),
-    chip("pace-all", "Whole group", state.pace === "all", setPace("all")));
+    chip("pace-all", "Everyone", state.pace === "all", setPace("all")));
   document.getElementById("learn-row").hidden = state.view === "browse";
 
   const list = batchesOf(currentGroup()), bi = batchIndex();
@@ -594,7 +574,7 @@ function renderControls() {
   document.getElementById("batch-next").disabled = bi === list.length - 1;
   document.getElementById("batch-sheet").textContent = state.pace === "sofar" ? "See everyone so far" : `See this batch (${list[bi].length})`;
 
-  const parts = [currentGroup().label.replace(/ \(\d+\)$/, "")];
+  const parts = [currentGroup().label];
   if (state.view !== "browse" && state.pace !== "all") parts.push(state.pace === "sofar" ? `Batches 1–${bi + 1}` : `Batch ${bi + 1} of ${list.length}`);
   if (state.view === "quiz") parts.push(MODES[state.deck].find(m => m.id === state.mode).label);
   document.getElementById("settings-sum").textContent = (state.deck === "cabinet" ? "Cabinet · " : "") + parts.join(" · ");
@@ -760,7 +740,7 @@ function nextCard() {
       <div class="flash-inner">
         <div class="face front">
           ${photoHTML(m.photo, "Photo of a member")}
-          <span class="hint">Say the name${state.deck === "cabinet" ? " and portfolio" : " and riding"}, then tap to flip</span>
+          <span class="hint">Say the name${state.deck === "cabinet" ? " and portfolio" : " and riding"} out loud, then check your answer</span>
         </div>
         <div class="face back">
           ${photoHTML(m.photo, m.name)}
@@ -769,21 +749,39 @@ function nextCard() {
         </div>
       </div>
     </div>
+    <div id="flash-actions"></div>`;
+  document.getElementById("flash").addEventListener("click", flip);
+  renderFlashActions(false);
+}
+/* before the answer: one button to reveal it. After: did you know it? */
+function renderFlashActions(flipped) {
+  const el = document.getElementById("flash-actions");
+  if (!flipped) {
+    el.innerHTML = `
+      <div class="flash-actions one"><button class="btn-2" id="show-answer">Show answer</button></div>
+      <p class="hint kbd flash-hint">Space shows the answer</p>`;
+    document.getElementById("show-answer").addEventListener("click", flip);
+    return;
+  }
+  el.innerHTML = `
+    <p class="flash-ask">Did you know it?</p>
     <div class="flash-actions">
-      <button class="again" id="again">Again</button>
-      <button class="gotit" id="gotit">Got it</button>
+      <button class="again" id="again">No, not yet</button>
+      <button class="gotit" id="gotit">Yes, I knew it</button>
     </div>
-    <p class="hint kbd" style="text-align:center;margin-top:10px">Space flips · ← again · → got it</p>`;
-  const f = document.getElementById("flash");
-  f.addEventListener("click", flip);
+    <p class="hint flash-hint">"Not yet" brings this person back sooner. <span class="kbd">← no · → yes</span></p>`;
   document.getElementById("again").addEventListener("click", () => rateCard(false));
   document.getElementById("gotit").addEventListener("click", () => rateCard(true));
 }
 function flip() {
   const f = document.getElementById("flash");
-  if (f && f.classList.toggle("flipped")) autoSay(cardItem, true);
+  if (!f) return;
+  const flipped = f.classList.toggle("flipped");
+  renderFlashActions(flipped);
+  if (flipped) autoSay(cardItem, true);
 }
 function rateCard(ok) {
+  if (!document.getElementById("flash")?.classList.contains("flipped")) return;
   record(state.deck === "mpps" ? "card" : "ccard", cardItem.id, ok);
   markIntroduced(cardItem);
   renderProgress(); nextCard();
@@ -835,7 +833,7 @@ function renderGrid() {
 /* ---------- shell ---------- */
 function saveState() {
   store.set("view", state.view); store.set("deck", state.deck); store.set("mode", state.mode);
-  store.set("pace", state.pace); store.set("group-mpps", state.group.mpps); store.set("group-cabinet", state.group.cabinet);
+  store.set("pace", state.pace);
 }
 function refresh() {
   document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === state.view)));
@@ -847,7 +845,6 @@ function refresh() {
   if (state.view === "browse") { renderPartyChips(); renderGrid(); }
 }
 document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { state.view = b.dataset.view; saveState(); refresh(); }));
-document.getElementById("group").addEventListener("change", e => { state.group[state.deck] = e.target.value; saveState(); refresh(); });
 document.getElementById("search").addEventListener("input", renderGrid);
 document.addEventListener("click", e => {
   const b = e.target.closest?.("[data-say]");
@@ -861,7 +858,7 @@ document.getElementById("batch-next").addEventListener("click", () => setBatch(b
 document.getElementById("batch-sheet").addEventListener("click", showSheet);
 
 document.addEventListener("keydown", e => {
-  if (e.target.matches("input, select")) return;
+  if (e.target.matches?.("input, select")) return;
   if (state.view === "quiz") {
     if (!answered && /^[1-4]$/.test(e.key)) choose(+e.key - 1);
     else if (e.key === "Enter") {
