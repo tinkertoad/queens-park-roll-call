@@ -1,0 +1,848 @@
+<title>Queen's Park Roll Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --ground:#F5F2F2; --surface:#FFFFFF; --surface-2:#EFE9E9;
+  --ink:#1E191B; --ink-2:#5B5256; --ink-3:#8C8387; --line:#E2D9DA;
+  --accent:#9E4336; --accent-ink:#FFFFFF; --accent-soft:#F3E3DF;
+  --good:#2E7D4F; --good-soft:#E1F1E7; --bad:#B3261E; --bad-soft:#FBE4E2;
+  --pc:#1F58B8; --lib:#C62131; --ndp:#D96A0F; --grn:#3A8A34; --ind:#6E6A6C; --spk:#3B3336;
+  --display:"Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --data:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#161213; --surface:#211B1D; --surface-2:#2B2427;
+    --ink:#F2ECEE; --ink-2:#B9AEB2; --ink-3:#877C80; --line:#3A3135;
+    --accent:#E48B7B; --accent-ink:#1E1113; --accent-soft:#3A2522;
+    --good:#6CC592; --good-soft:#1C3326; --bad:#F08A80; --bad-soft:#3D1F1D;
+    --pc:#7FA6F0; --lib:#F07480; --ndp:#F5A260; --grn:#86C87E; --ind:#ADA7A9; --spk:#D6CDD0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#161213; --surface:#211B1D; --surface-2:#2B2427;
+  --ink:#F2ECEE; --ink-2:#B9AEB2; --ink-3:#877C80; --line:#3A3135;
+  --accent:#E48B7B; --accent-ink:#1E1113; --accent-soft:#3A2522;
+  --good:#6CC592; --good-soft:#1C3326; --bad:#F08A80; --bad-soft:#3D1F1D;
+  --pc:#7FA6F0; --lib:#F07480; --ndp:#F5A260; --grn:#86C87E; --ind:#ADA7A9; --spk:#D6CDD0;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:15px/1.5 var(--body);padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:980px;margin:0 auto}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 20px;padding-block:22px 14px;border-bottom:1px solid var(--line)}
+.brand h1{font:700 26px/1.1 var(--display);margin:0;letter-spacing:-.01em}
+.brand h1 em{font-weight:400;color:var(--accent)}
+.brand p{margin:4px 0 0;color:var(--ink-2);font-size:13px}
+nav.tabs{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:10px}
+nav.tabs button{border:0;background:transparent;padding:7px 14px;border-radius:7px;font-weight:600;font-size:14px;color:var(--ink-2);cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .08)}
+
+.settings{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.settings summary{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:13.5px;font-weight:600}
+.settings summary::-webkit-details-marker{display:none}
+.settings summary #settings-sum{flex:1;min-width:0}
+.settings summary .change{font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap}
+.settings summary .change::after{content:" ▾"}
+.settings[open] summary{border-bottom:1px solid var(--line)}
+.settings[open] summary .change::after{content:" ▴"}
+.controls{display:flex;flex-direction:column;gap:10px;padding:12px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.row .lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);min-width:64px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+
+.progress{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:12px}
+.progress .bar{min-width:160px}
+.bar{flex:1;height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .k{background:var(--good)} .bar .l{background:var(--accent);opacity:.55}
+.progress .n{font:500 13px var(--data);color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* quiz */
+.stage{max-width:560px;margin:18px auto 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.prompt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.prompt .kicker{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.prompt .q{font:700 24px/1.2 var(--display);text-wrap:balance;margin:0}
+.prompt .q.small{font-size:20px}
+.photo{width:170px;aspect-ratio:5/6;max-width:100%;border-radius:10px;overflow:hidden;background:var(--surface-2);flex:none}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.choices{display:grid;gap:8px;margin-top:18px}
+.choice{display:flex;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 14px;cursor:pointer;font-weight:500;min-height:52px}
+.choice:hover:not(:disabled){border-color:var(--ink-3)}
+.choice .key{font:500 12px var(--data);color:var(--ink-3);border:1px solid var(--line);border-radius:5px;width:22px;height:22px;display:grid;place-items:center;flex:none}
+.choice.right{border-color:var(--good);background:var(--good-soft)}
+.choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.choice:disabled{cursor:default}
+.feedback{margin-top:14px;display:flex;gap:14px;align-items:center;padding:12px;border-radius:10px;background:var(--surface-2)}
+.feedback .photo{width:64px;border-radius:7px}
+.feedback .who{flex:1;min-width:0}
+.feedback .who b{display:block;font-size:16px}
+.feedback .verdict{font-weight:700;font-size:13px}
+.verdict.ok{color:var(--good)} .verdict.no{color:var(--bad)}
+.next{margin-top:12px;display:flex;justify-content:flex-end;gap:10px;align-items:center}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);font-weight:600;padding:10px 18px;border-radius:9px;cursor:pointer}
+.btn-2{border:1px solid var(--line);background:var(--surface);font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer}
+.hint{font-size:12px;color:var(--ink-3)}
+.score{display:flex;justify-content:center;gap:18px;margin-top:12px;font:500 13px var(--data);color:var(--ink-2)}
+
+.select{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 10px;border-radius:8px;font:500 13px var(--body);max-width:100%}
+.intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+.intro .kicker{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.intro h2{font:700 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
+.intro .photo{width:190px}
+.intro .hint{margin:6px 0 0}
+.intro .next{align-self:stretch;justify-content:center}
+.btn-2.sm{padding:4px 11px;font-size:13px;border-radius:8px}
+.btn-2:disabled{opacity:.4;cursor:default}
+.learned.done{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.card:not(.intro) > .kicker{display:block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.grid.sheet{margin-top:0;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.grid.sheet .m .info b{font-size:13px}
+.named{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.said{display:inline-flex;align-items:center;gap:4px}
+.say{flex:none;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer;padding:0;vertical-align:middle}
+.say:hover{border-color:var(--accent)}
+.say:active{background:var(--accent-soft)}
+.said .say{width:24px;height:24px}
+.said .say svg{width:13px;height:13px}
+.m .named{justify-content:space-between;align-items:flex-start}
+.m .said{align-items:flex-start;justify-content:space-between}
+.learned{margin:12px 0 0;padding:10px 12px;border-radius:9px;background:var(--good-soft);color:var(--good);font-weight:600;font-size:14px}
+/* party */
+.party{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.party::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--pc)}
+.party[data-p="Liberal"]::before{background:var(--lib)}
+.party[data-p="NDP"]::before{background:var(--ndp)}
+.party[data-p="Green"]::before{background:var(--grn)}
+.party[data-p="Independent"]::before{background:var(--ind)}
+.party[data-p="Speaker"]::before{background:var(--spk)}
+.role{font-size:13px;color:var(--accent);font-weight:600;line-height:1.35}
+.riding{color:var(--ink-2);font-size:14px}
+
+/* flashcards */
+.flash{perspective:1200px;cursor:pointer;user-select:none}
+.flash-inner{position:relative;transition:transform .45s;transform-style:preserve-3d;min-height:360px}
+.flash.flipped .flash-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.face.back{transform:rotateY(180deg)}
+.face .photo{width:190px}
+.back .photo{width:110px}
+.back h2{font:700 24px/1.15 var(--display);margin:0;text-wrap:balance}
+.flash-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.flash-actions button{padding:12px;border-radius:10px;font-weight:600;cursor:pointer}
+.again{border:1px solid var(--bad);background:var(--bad-soft);color:var(--bad)}
+.gotit{border:1px solid var(--good);background:var(--good-soft);color:var(--good)}
+@media (prefers-reduced-motion: reduce){.flash-inner{transition:none}}
+
+/* browse */
+.search{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface);font:inherit;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}
+.m{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.m .photo{width:100%;border-radius:0}
+.m .info{padding:9px 10px 11px;display:flex;flex-direction:column;gap:3px}
+.m .info b{font-size:14px;line-height:1.25}
+.m .riding{font-size:12.5px;line-height:1.3}
+.m .role{font-size:11.5px}
+.m.mastered .photo{box-shadow:inset 0 -4px 0 var(--good)}
+.sec{margin-top:22px}
+.sec h3{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.sec h3 .party{font:700 18px var(--display);color:var(--ink)}
+.sec h3 .party::before{width:11px;height:11px}
+.sec-n{font:500 12px var(--data);color:var(--ink-3)}
+.count{font:500 12px var(--data);color:var(--ink-3);margin-top:10px}
+.note{margin-top:28px;font-size:12.5px;color:var(--ink-3);max-width:65ch}
+.confirm{display:inline-flex;gap:8px;align-items:center}
+.linkish{background:none;border:0;padding:0;color:var(--ink-3);text-decoration:underline;cursor:pointer;font-size:12.5px}
+
+@media (hover: none){.kbd{display:none}}
+@media (max-width:520px){
+  header.top{padding-block:14px 10px}
+  .brand p{display:none}
+  .progress .bar{flex-basis:100%}
+  .progress .n{white-space:normal;font-size:12px}
+  .stage{margin-top:12px}
+  .card{padding:16px}
+  .choices{margin-top:14px}
+  .choice{min-height:48px;padding:10px 12px}
+  .intro .photo,.face .photo{width:150px}
+  .flash-inner{min-height:330px}
+  .brand h1{font-size:22px}
+  nav.tabs{width:100%} nav.tabs button{flex:1}
+  .prompt .q{font-size:21px}
+  .photo{width:150px}
+  .row .lbl{min-width:100%}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Queen's Park <em>Roll Call</em></h1>
+      <p>124 members of the 44th Parliament of Ontario, and the cabinet</p>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-quiz" aria-selected="true" data-view="quiz">Quiz</button>
+      <button role="tab" id="tab-cards" aria-selected="false" data-view="cards">Flashcards</button>
+      <button role="tab" id="tab-browse" aria-selected="false" data-view="browse">Browse</button>
+    </nav>
+  </header>
+
+  <details class="settings" id="settings">
+  <summary><span id="settings-sum"></span><span class="change">Change</span></summary>
+  <section class="controls" id="controls">
+    <div class="row" id="deck-row"><span class="lbl">Study</span></div>
+    <div class="row" id="learn-row"><span class="lbl">Learn</span>
+      <select id="group" class="select" aria-label="Which group to learn"></select>
+      <span class="row" id="pace"></span>
+    </div>
+    <div class="row" id="batch-row"><span class="lbl">Batch</span>
+      <button class="btn-2 sm" id="batch-prev" aria-label="Previous batch">‹</button>
+      <select id="batch-sel" class="select" aria-label="Which batch"></select>
+      <button class="btn-2 sm" id="batch-next" aria-label="Next batch">›</button>
+      <button class="btn-2 sm" id="batch-sheet">See this batch</button>
+    </div>
+    <div class="row" id="mode-row"><span class="lbl">Question</span></div>
+    <div class="row" id="sound-row"><span class="lbl">Sound</span></div>
+  </section>
+  </details>
+  <div class="progress" id="progress-row">
+    <div class="bar"><i class="k" id="bar-k"></i><i class="l" id="bar-l"></i></div>
+    <span class="n" id="progress-n"></span>
+  </div>
+
+  <main>
+    <section id="view-quiz" class="stage"></section>
+    <section id="view-cards" class="stage" hidden></section>
+    <section id="view-browse" hidden>
+      <input class="search" id="search" type="search" placeholder="Search by name or riding" autocomplete="off">
+      <div class="row" id="party-row" style="margin-top:10px"></div>
+      <div class="count" id="browse-count"></div>
+      <div id="grid"></div>
+    </section>
+  </main>
+
+  <p class="note">
+    From the member and cabinet lists dated September 2026. In the House, members are addressed by riding rather than by name ("the member for Nipissing"), and ministers by title, which is why riding and portfolio are drilled here as well as faces.
+    A member counts as known once you answer correctly twice in a row. Progress is saved in this browser only.
+    <span id="reset-wrap"><button class="linkish" id="reset">Reset progress</button></span>
+  </p>
+</div>
+
+<script>
+const MPPS = /*MPPS*/[];
+const CABINET = /*CABINET*/[];
+
+/* ---------- data ---------- */
+const byRiding = Object.fromEntries(MPPS.map((m, i) => { m.id = "m" + i; return [m.riding, m]; }));
+CABINET.forEach(c => { const m = byRiding[c.riding]; m.roles = c.roles; m.associate = !!c.associate; c.m = m; });
+const MINISTERS = CABINET.map(c => c.m);
+const PORTFOLIOS = CABINET.flatMap(c => c.roles.map(r => ({ id: "p:" + r, role: r, m: c.m })));
+const personOf = it => it.m || it;
+
+/* ---------- groups ---------- */
+const STARTER = ["Etobicoke North", "Davenport", "Guelph", "Flamborough-Glanbrook", "Dufferin-Caledon", "Pickering-Uxbridge"].map(r => byRiding[r]);
+const CLUSTERS = ["Brampton", "Mississauga", "Scarborough", "Etobicoke", "Don Valley", "Toronto", "Markham", "Ottawa", "Hamilton", "London", "Kitchener", "Niagara"]
+  .map(p => ({ id: "c-" + p.replace(" ", "-").toLowerCase(), label: p, people: MPPS.filter(m => m.riding.startsWith(p)) }));
+const OPPOSITION = MPPS.filter(m => !["PC", "Speaker"].includes(m.party));
+const uniq = arr => [...new Set(arr)];
+/* within a party: leaders and ministers first, then city by city so neighbours come together */
+const CITY_ORDER = uniq([...MINISTERS, ...CLUSTERS.flatMap(c => c.people), ...MPPS]);
+const LEADERS = ["Etobicoke North", "Davenport", "Guelph"].map(r => byRiding[r]);
+const rank = p => (LEADERS.includes(p) ? -1 : CITY_ORDER.indexOf(p));
+const PARTY_INFO = {
+  PC: { label: "PC", note: "Government" },
+  NDP: { label: "NDP", note: "Official Opposition" },
+  Liberal: { label: "Liberal", note: "" },
+  Green: { label: "Green", note: "" },
+  Independent: { label: "Independent", note: "" },
+  Speaker: { label: "Speaker", note: "" },
+};
+const ofParty = party => MPPS.filter(m => m.party === party).sort((a, b) => rank(a) - rank(b));
+/* the guided path goes party by party, smallest caucuses first so early batches finish quickly */
+const PATH_PARTIES = ["Speaker", "Green", "Independent", "Liberal", "NDP", "PC"];
+const PATH = PATH_PARTIES.flatMap(ofParty);
+
+const GROUPS = {
+  mpps: [
+    { id: "path", label: "Guided path, party by party (124)", people: PATH },
+    { id: "p-pc", label: `PC, Government (${ofParty("PC").length})`, people: ofParty("PC") },
+    { id: "p-ndp", label: `NDP, Official Opposition (${ofParty("NDP").length})`, people: ofParty("NDP") },
+    { id: "p-lib", label: `Liberal (${ofParty("Liberal").length})`, people: ofParty("Liberal") },
+    { id: "p-small", label: "Green, Independent and Speaker (5)", people: [...ofParty("Speaker"), ...ofParty("Green"), ...ofParty("Independent")] },
+    { id: "cabinet", label: "Cabinet (36)", people: MINISTERS },
+    { id: "starter", label: "Starter six", people: STARTER },
+    { id: "opposition", label: "All opposition (45)", people: OPPOSITION },
+    ...CLUSTERS,
+    { id: "all", label: "Everyone, A–Z by riding", people: MPPS },
+  ],
+  cabinet: [
+    { id: "path", label: "All 36, most senior first", people: MINISTERS },
+    { id: "ministers", label: "Ministers only", people: MINISTERS.filter(m => !m.associate) },
+    { id: "associates", label: "Associate ministers", people: MINISTERS.filter(m => m.associate) },
+  ],
+};
+const BATCH = 8;
+
+/* ---------- storage ---------- */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("qprc:" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("qprc:" + k, JSON.stringify(v)); } catch {} }
+};
+let stats = store.get("stats", {});
+const statOf = (mode, id) => stats[mode + "|" + id] || { s: 0, n: 0, w: 0 };
+function record(mode, id, ok) {
+  const st = statOf(mode, id);
+  st.n++; if (ok) st.s++; else { st.s = 0; st.w++; }
+  stats[mode + "|" + id] = st; store.set("stats", stats);
+}
+const known = (mode, id) => statOf(mode, id).s >= 2;
+const introduced = p => !!stats["intro|" + p.id];
+function markIntroduced(p) { stats["intro|" + p.id] = 1; store.set("stats", stats); }
+
+/* ---------- modes ---------- */
+const MODES = {
+  mpps: [
+    { id: "mix", label: "Mixed" },
+    { id: "face-name", label: "Face → name" },
+    { id: "face-riding", label: "Face → riding" },
+    { id: "name-riding", label: "Name → riding" },
+    { id: "riding-name", label: "Riding → name" },
+  ],
+  cabinet: [
+    { id: "cmix", label: "Mixed" },
+    { id: "min-port", label: "Minister → portfolio" },
+    { id: "port-min", label: "Portfolio → minister" },
+    { id: "face-port", label: "Face → portfolio" },
+    { id: "cface-name", label: "Face → name" },
+  ],
+};
+const DECKS = [{ id: "mpps", label: "All 124 MPPs" }, { id: "cabinet", label: "Cabinet (36)" }];
+
+let state = {
+  view: store.get("view", "quiz"),
+  deck: store.get("deck", "mpps"),
+  mode: store.get("mode", "mix"),
+  pace: store.get("pace", "batch"),
+  batch: store.get("batch", {}),
+  autoSay: store.get("autoSay", false),
+  group: { mpps: store.get("group-mpps", "path"), cabinet: store.get("group-cabinet", "path") },
+};
+if (!["batch", "sofar", "all"].includes(state.pace)) state.pace = "batch";
+if (!MODES[state.deck].some(m => m.id === state.mode)) state.mode = MODES[state.deck][0].id;
+for (const d of ["mpps", "cabinet"]) if (!GROUPS[d].some(g => g.id === state.group[d])) state.group[d] = "path";
+
+function itemsFor(mode) {
+  if (mode === "port-min") return PORTFOLIOS;
+  if (["min-port", "face-port", "cface-name"].includes(mode)) return MINISTERS;
+  return MPPS;
+}
+function concreteModes(mode) {
+  if (mode === "mix") return ["face-name", "face-riding", "name-riding", "riding-name"];
+  if (mode === "cmix") return ["min-port", "port-min", "face-port", "cface-name"];
+  return [mode];
+}
+/* the question types that the current view is measuring */
+function activeModes() {
+  if (state.view === "cards") return [state.deck === "mpps" ? "card" : "ccard"];
+  if (state.view === "browse") return concreteModes(state.deck === "mpps" ? "mix" : "cmix");
+  return concreteModes(state.mode);
+}
+function personKnown(p, modes) {
+  return modes.every(md => md === "port-min" ? p.roles.every(r => known(md, "p:" + r)) : known(md, p.id));
+}
+
+/* ---------- batching ---------- */
+const currentGroup = () => GROUPS[state.deck].find(g => g.id === state.group[state.deck]);
+/* a group is cut into fixed batches of 8; he stays on one until he chooses to move on */
+function batchesOf(group) {
+  const out = [];
+  for (let i = 0; i < group.people.length; i += BATCH) out.push(group.people.slice(i, i + BATCH));
+  return out;
+}
+const batchKey = () => state.deck + ":" + state.group[state.deck];
+function batchIndex() {
+  const list = batchesOf(currentGroup());
+  let i = state.batch[batchKey()];
+  if (i == null) {
+    /* first visit: start at the first batch that still has someone unknown, so earlier progress counts */
+    const modes = activeModes();
+    i = list.findIndex(b => b.some(p => !personKnown(p, modes)));
+    if (i < 0) i = 0;
+    state.batch[batchKey()] = i; store.set("batch", state.batch);
+  }
+  return Math.min(Math.max(i, 0), list.length - 1);
+}
+function setBatch(i) { state.batch[batchKey()] = i; store.set("batch", state.batch); refresh(); }
+function activePeople() {
+  const group = currentGroup();
+  if (state.pace === "all") return group.people;
+  const list = batchesOf(group), i = batchIndex();
+  return state.pace === "sofar" ? list.slice(0, i + 1).flat() : list[i];
+}
+
+/* ---------- picking ---------- */
+const recent = [];
+function weight(mode, id) {
+  const st = statOf(mode, id);
+  if (st.n === 0) return 3;
+  /* inside one batch, keep everyone coming round so the whole set gets practised */
+  if (state.pace === "batch") return st.s >= 2 ? 1.2 : 3 + Math.min(st.w, 4);
+  if (st.s >= 4) return 0.15;
+  if (st.s >= 2) return 0.5;
+  return 3 + Math.min(st.w, 4);
+}
+function remember(key) { recent.push(key); if (recent.length > 12) recent.shift(); }
+function weightedPick(cands) {
+  let r = Math.random() * cands.reduce((a, c) => a + c.w, 0);
+  for (const c of cands) { if ((r -= c.w) <= 0) return c; }
+  return cands[cands.length - 1];
+}
+function pickQuestion(active) {
+  const set = new Set(active);
+  const all = [], fresh = [];
+  for (const mode of concreteModes(state.mode)) for (const it of itemsFor(mode)) {
+    if (!set.has(personOf(it))) continue;
+    const c = { mode, it, w: weight(mode, it.id) };
+    all.push(c);
+    if (!recent.includes(mode + it.id)) fresh.push(c);
+  }
+  /* avoid repeats, but a batch of one or two people has to repeat */
+  const pool = fresh.length >= 2 ? fresh : all;
+  return weightedPick(pool);
+}
+
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const firstWord = s => s.split(/[\s-]/)[0];
+
+/* choose 3 distractors, favouring look-alikes and people he is currently learning */
+function distractors(pool, answer, keyFn, simFn, full) {
+  const src = pool.filter(x => keyFn(x) !== keyFn(answer)).length >= 3 ? pool : full;
+  const others = src.filter(x => keyFn(x) !== keyFn(answer));
+  const scored = others.map(x => ({ x, s: simFn(x, answer) + Math.random() * 1.5 }));
+  scored.sort((a, b) => b.s - a.s);
+  const out = [], seen = new Set([keyFn(answer)]);
+  for (const { x } of scored) { const k = keyFn(x); if (!seen.has(k)) { seen.add(k); out.push(x); } if (out.length === 3) break; }
+  return out;
+}
+const simRiding = (a, b) => (firstWord(a.riding) === firstWord(b.riding) ? 2 : 0);
+const simName = (a, b) => (a.name.split(" ")[0] === b.name.split(" ")[0] ? 2 : 0) + (a.party === b.party ? 0.5 : 0);
+const simNone = () => 0;
+
+function buildQuestion({ mode, it }, active) {
+  const q = { mode, id: it.id };
+  const mpPool = active, minPool = active.filter(p => p.roles);
+  const roleKey = x => x.roles.join(" · ");
+  if (mode === "face-name" || mode === "cface-name") {
+    const [pool, full] = mode === "face-name" ? [mpPool, MPPS] : [minPool, MINISTERS];
+    q.kicker = "Who is this?"; q.photo = it.photo; q.who = it;
+    q.answer = it.name; q.opts = distractors(pool, it, x => x.name, simName, full).map(x => x.name);
+  } else if (mode === "face-riding") {
+    q.kicker = "Which riding?"; q.photo = it.photo; q.who = it;
+    q.answer = it.riding; q.opts = distractors(mpPool, it, x => x.riding, simRiding, MPPS).map(x => x.riding);
+  } else if (mode === "name-riding") {
+    q.kicker = "Which riding?"; q.text = it.name; q.who = it;
+    q.answer = it.riding; q.opts = distractors(mpPool, it, x => x.riding, simRiding, MPPS).map(x => x.riding);
+  } else if (mode === "riding-name") {
+    q.kicker = "Who is the member for"; q.text = it.riding + "?"; q.who = it;
+    q.answer = it.name; q.opts = distractors(mpPool, it, x => x.name, simName, MPPS).map(x => x.name);
+  } else if (mode === "min-port" || mode === "face-port") {
+    q.kicker = "What is their portfolio?"; q.who = it;
+    if (mode === "min-port") q.text = it.name; else q.photo = it.photo;
+    q.answer = roleKey(it);
+    q.opts = distractors(minPool, it, roleKey, simNone, MINISTERS).map(roleKey);
+  } else if (mode === "port-min") {
+    q.kicker = "Who holds this office?"; q.text = it.role; q.small = true; q.who = it.m;
+    q.answer = it.m.name;
+    q.opts = distractors(minPool, it.m, x => x.name, simName, MINISTERS).map(x => x.name);
+  }
+  q.choices = shuffle([q.answer, ...q.opts]);
+  return q;
+}
+
+/* ---------- rendering helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const photoHTML = (src, alt) => `<div class="photo"><img src="${src}" alt="${esc(alt)}"></div>`;
+const partyHTML = m => `<span class="party" data-p="${esc(m.party)}">${esc(m.party)}</span>`;
+const rolesHTML = m => m.roles ? `<div class="role">${m.roles.map(esc).join("<br>")}</div>` : "";
+/* ---------- speech: the browser's built-in voice reads names aloud ---------- */
+const CAN_SPEAK = typeof window.speechSynthesis !== "undefined" && typeof window.SpeechSynthesisUtterance !== "undefined";
+/* the voice guesses from spelling; add a sounds-like spelling here when it gets someone wrong */
+const SAY_AS = {
+  "Jennifer (Jennie) Stevens": "Jennie Stevens",
+  "Sault Ste. Marie": "Soo Saint Marie",
+};
+const spoken = s => (SAY_AS[s] || s)
+  .replace(/\bSte\./g, "Sainte").replace(/\bSt\./g, "Saint")
+  .replace(/\s*\(.*?\)/g, "").replace(/-/g, ", ");
+let voice = null;
+function chooseVoice() {
+  if (!CAN_SPEAK) return;
+  const vs = speechSynthesis.getVoices();
+  const rank = v => (v.lang === "en-CA" ? 0 : v.lang === "en-US" ? 1 : v.lang.startsWith("en") ? 2 : 9) - (v.localService ? 0.5 : 0);
+  voice = vs.filter(v => v.lang && v.lang.startsWith("en")).sort((a, b) => rank(a) - rank(b))[0] || null;
+}
+if (CAN_SPEAK) { chooseVoice(); speechSynthesis.addEventListener?.("voiceschanged", chooseVoice); }
+function speak(text) {
+  if (!CAN_SPEAK) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(spoken(text));
+    if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "en-CA";
+    u.rate = 0.85;
+    speechSynthesis.speak(u);
+  } catch {}
+}
+const SPEAKER_SVG = `<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7a4 4 0 0 1 0 6M15.2 4.8a7 7 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+const sayBtn = text => CAN_SPEAK ? `<button type="button" class="say" data-say="${esc(text)}" aria-label="Say ${esc(spoken(text))} aloud">${SPEAKER_SVG}</button>` : "";
+const nameHTML = (m, tag) => `<${tag} class="named"><span>${esc(m.name)}</span>${sayBtn(m.name)}</${tag}>`;
+const ridingHTML = (m, prefix = "") => `<span class="riding said">${prefix}${esc(m.riding)}${sayBtn(m.riding)}</span>`;
+function autoSay(m, withRiding) { if (state.autoSay) speak(withRiding ? m.name + ". " + m.riding : m.name); }
+
+const whoHTML = m => `
+  ${ridingHTML(m, "Member for ")}
+  ${partyHTML(m)}
+  ${rolesHTML(m)}`;
+
+function chip(id, label, pressed, onClick) {
+  const b = document.createElement("button");
+  b.className = "chip"; b.id = id; b.textContent = label;
+  b.setAttribute("aria-pressed", String(pressed));
+  b.addEventListener("click", onClick);
+  return b;
+}
+function renderControls() {
+  const deckRow = document.getElementById("deck-row");
+  deckRow.querySelectorAll(".chip").forEach(c => c.remove());
+  for (const d of DECKS) deckRow.append(chip("deck-" + d.id, d.label, state.deck === d.id, () => {
+    state.deck = d.id; state.mode = MODES[d.id][0].id; saveState(); refresh();
+  }));
+
+  const sel = document.getElementById("group");
+  sel.innerHTML = GROUPS[state.deck].map(g =>
+    `<option value="${g.id}"${g.id === state.group[state.deck] ? " selected" : ""}>${esc(g.label)}${g.id.startsWith("c-") ? ` (${g.people.length})` : ""}</option>`).join("");
+
+  const paceRow = document.getElementById("pace");
+  paceRow.innerHTML = "";
+  const setPace = p => () => { state.pace = p; saveState(); refresh(); };
+  paceRow.append(
+    chip("pace-batch", "One batch", state.pace === "batch", setPace("batch")),
+    chip("pace-sofar", "All batches so far", state.pace === "sofar", setPace("sofar")),
+    chip("pace-all", "Whole group", state.pace === "all", setPace("all")));
+  document.getElementById("learn-row").hidden = state.view === "browse";
+
+  const list = batchesOf(currentGroup()), bi = batchIndex();
+  const nav = document.getElementById("batch-row");
+  nav.hidden = state.view === "browse" || state.pace === "all";
+  const modes = activeModes();
+  document.getElementById("batch-sel").innerHTML = list.map((b, i) => {
+    const k = b.filter(p => personKnown(p, modes)).length;
+    return `<option value="${i}"${i === bi ? " selected" : ""}>Batch ${i + 1} of ${list.length}${k === b.length ? " · done" : k ? ` · ${k}/${b.length}` : ""}</option>`;
+  }).join("");
+  document.getElementById("batch-prev").disabled = bi === 0;
+  document.getElementById("batch-next").disabled = bi === list.length - 1;
+  document.getElementById("batch-sheet").textContent = state.pace === "sofar" ? "See everyone so far" : `See this batch (${list[bi].length})`;
+
+  const parts = [currentGroup().label.replace(/ \(\d+\)$/, "")];
+  if (state.view !== "browse" && state.pace !== "all") parts.push(state.pace === "sofar" ? `Batches 1–${bi + 1}` : `Batch ${bi + 1} of ${list.length}`);
+  if (state.view === "quiz") parts.push(MODES[state.deck].find(m => m.id === state.mode).label);
+  document.getElementById("settings-sum").textContent = (state.deck === "cabinet" ? "Cabinet · " : "") + parts.join(" · ");
+
+  const soundRow = document.getElementById("sound-row");
+  soundRow.hidden = !CAN_SPEAK;
+  soundRow.querySelectorAll(".chip").forEach(c => c.remove());
+  soundRow.append(chip("auto-say", "Say names automatically", state.autoSay, () => {
+    state.autoSay = !state.autoSay; store.set("autoSay", state.autoSay); renderControls();
+    if (state.autoSay) speak("Names will be read aloud");
+  }));
+
+  const modeRow = document.getElementById("mode-row");
+  modeRow.querySelectorAll(".chip").forEach(c => c.remove());
+  modeRow.hidden = state.view !== "quiz";
+  for (const m of MODES[state.deck]) modeRow.append(chip("mode-" + m.id, m.label, state.mode === m.id, () => {
+    state.mode = m.id; saveState(); refresh();
+  }));
+}
+
+function renderProgress() {
+  const modes = activeModes();
+  const people = currentGroup().people;
+  const nKnown = people.filter(p => personKnown(p, modes)).length;
+  const nStarted = people.filter(p => !personKnown(p, modes) && modes.some(md =>
+    md === "port-min" ? p.roles.some(r => statOf(md, "p:" + r).n) : statOf(md, p.id).n)).length;
+  document.getElementById("bar-k").style.width = (100 * nKnown / people.length) + "%";
+  document.getElementById("bar-l").style.width = (100 * nStarted / people.length) + "%";
+  let text = `${nKnown} of ${people.length} known`;
+  if (state.pace !== "all" && state.view !== "browse") {
+    const active = activePeople();
+    text = `${active.filter(p => personKnown(p, modes)).length} of ${active.length} in ${state.pace === "batch" ? "this batch" : "these batches"} · ${text}`;
+  }
+  document.getElementById("progress-n").textContent = text;
+}
+
+/* ---------- intro: meet someone before being quizzed on them ---------- */
+function showIntro(el, p, active, after) {
+  const fresh = active.filter(x => !introduced(x));
+  el.innerHTML = `
+    <div class="card intro">
+      <span class="kicker">Batch ${batchIndex() + 1} · ${fresh.length > 1 ? `${fresh.length} new people to meet` : "last new person"}</span>
+      ${photoHTML(p.photo, p.name)}
+      ${nameHTML(p, "h2")}
+      ${whoHTML(p)}
+      <p class="hint">Look at the face, then say the name and riding out loud once.</p>
+      <div class="next"><button class="btn" id="intro-next">${fresh.length > 1 ? "Next person" : "Start quiz"}</button></div>
+    </div>`;
+  document.getElementById("intro-next").addEventListener("click", () => { markIntroduced(p); after(); });
+  autoSay(p, true);
+}
+
+function learnedHTML(m, modes) {
+  if (state.pace !== "batch") return `<p class="learned">${esc(m.name)} is learned.</p>`;
+  const active = activePeople(), k = active.filter(p => personKnown(p, modes)).length;
+  const hasNext = batchIndex() < batchesOf(currentGroup()).length - 1;
+  if (k < active.length) return `<p class="learned">${esc(m.name)} is learned · ${k} of ${active.length} in this batch.</p>`;
+  return `<div class="learned done">
+      <span>You know everyone in this batch. Keep practising it as long as you like${hasNext ? ", or move on when it feels easy" : ""}.</span>
+      ${hasNext ? `<button class="btn-2" id="to-next-batch">Go to batch ${batchIndex() + 2}</button>` : ""}
+    </div>`;
+}
+
+/* ---------- study sheet: the whole batch on one screen ---------- */
+function showSheet() {
+  clearTimeout(autoTimer);
+  const el = document.getElementById(state.view === "cards" ? "view-cards" : "view-quiz");
+  const active = activePeople();
+  answered = true; current = null;
+  active.forEach(markIntroduced);
+  el.innerHTML = `
+    <div class="card">
+      <span class="kicker">${state.pace === "sofar" ? `Batches 1–${batchIndex() + 1}` : `Batch ${batchIndex() + 1}`} · ${active.length} people</span>
+      <div class="grid sheet">${active.map(m => `
+        <div class="m">
+          ${photoHTML(m.photo, m.name)}
+          <div class="info">${nameHTML(m, "b")}${ridingHTML(m)}${partyHTML(m)}${rolesHTML(m)}</div>
+        </div>`).join("")}</div>
+      <div class="next"><button class="btn" id="sheet-back">Back to ${state.view === "cards" ? "flashcards" : "the quiz"}</button></div>
+    </div>`;
+  document.getElementById("sheet-back").addEventListener("click", () => state.view === "cards" ? nextCard() : nextQuestion());
+}
+
+/* ---------- quiz ---------- */
+let current = null, answered = true, session = { right: 0, asked: 0 }, autoTimer = null;
+function nextQuestion() {
+  clearTimeout(autoTimer);
+  const el = document.getElementById("view-quiz");
+  const active = activePeople();
+  if (state.pace !== "all") {
+    const newbie = active.find(p => !introduced(p));
+    if (newbie) { answered = true; current = null; showIntro(el, newbie, active, nextQuestion); return; }
+  }
+  const pick = pickQuestion(active);
+  remember(pick.mode + pick.it.id);
+  current = buildQuestion(pick, active); answered = false;
+  const q = current;
+  el.innerHTML = `
+    <div class="card">
+      <div class="prompt">
+        <span class="kicker">${esc(q.kicker)}</span>
+        ${q.photo ? photoHTML(q.photo, "Photo of a member") : ""}
+        ${q.text ? `<p class="q${q.small || q.photo ? " small" : ""}">${esc(q.text)}</p>` : ""}
+      </div>
+      <div class="choices">
+        ${q.choices.map((c, i) => `<button class="choice" id="choice-${i}" data-i="${i}"><span class="key">${i + 1}</span><span>${esc(c)}</span></button>`).join("")}
+      </div>
+      <div id="fb"></div>
+    </div>
+    <div class="score"><span id="score">This session: ${session.right} / ${session.asked}</span></div>`;
+  el.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => choose(+b.dataset.i)));
+}
+function choose(i) {
+  if (answered || !current) return;
+  answered = true;
+  const q = current, ok = q.choices[i] === q.answer;
+  const modes = activeModes();
+  const wasKnown = personKnown(q.who, modes);
+  record(q.mode, q.id, ok);
+  const nowKnown = !wasKnown && personKnown(q.who, modes);
+  session.asked++; if (ok) session.right++;
+  document.querySelectorAll(".choice").forEach((b, j) => {
+    b.disabled = true;
+    if (q.choices[j] === q.answer) b.classList.add("right");
+    else if (j === i) b.classList.add("wrong");
+  });
+  const m = q.who;
+  document.getElementById("fb").innerHTML = `
+    <div class="feedback">
+      ${photoHTML(m.photo, m.name)}
+      <div class="who">
+        <span class="verdict ${ok ? "ok" : "no"}">${ok ? "Correct" : "Not quite"}</span>
+        ${nameHTML(m, "b")}
+        ${whoHTML(m)}
+      </div>
+    </div>
+    ${nowKnown ? learnedHTML(m, modes) : ""}
+    <div class="next"><span class="hint kbd">Enter for next</span><button class="btn" id="next-btn">Next</button></div>`;
+  document.getElementById("next-btn").addEventListener("click", nextQuestion);
+  document.getElementById("to-next-batch")?.addEventListener("click", () => setBatch(batchIndex() + 1));
+  autoSay(m, false);
+  document.getElementById("score").textContent = `This session: ${session.right} / ${session.asked}`;
+  renderProgress();
+  if (ok && !nowKnown) autoTimer = setTimeout(nextQuestion, 1600);
+  else {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("next-btn").scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }
+}
+
+/* ---------- flashcards ---------- */
+let cardItem = null;
+function nextCard() {
+  const mode = state.deck === "mpps" ? "card" : "ccard";
+  const active = activePeople();
+  const all = active.map(m => ({ m, w: weight(mode, m.id) }));
+  const fresh = all.filter(c => !recent.includes(mode + c.m.id));
+  cardItem = weightedPick(fresh.length >= 2 ? fresh : all).m;
+  remember(mode + cardItem.id);
+  const m = cardItem;
+  document.getElementById("view-cards").innerHTML = `
+    <div class="flash" id="flash" tabindex="0" role="button" aria-label="Flip card">
+      <div class="flash-inner">
+        <div class="face front">
+          ${photoHTML(m.photo, "Photo of a member")}
+          <span class="hint">Say the name${state.deck === "cabinet" ? " and portfolio" : " and riding"}, then tap to flip</span>
+        </div>
+        <div class="face back">
+          ${photoHTML(m.photo, m.name)}
+          ${nameHTML(m, "h2")}
+          ${whoHTML(m)}
+        </div>
+      </div>
+    </div>
+    <div class="flash-actions">
+      <button class="again" id="again">Again</button>
+      <button class="gotit" id="gotit">Got it</button>
+    </div>
+    <p class="hint kbd" style="text-align:center;margin-top:10px">Space flips · ← again · → got it</p>`;
+  const f = document.getElementById("flash");
+  f.addEventListener("click", flip);
+  document.getElementById("again").addEventListener("click", () => rateCard(false));
+  document.getElementById("gotit").addEventListener("click", () => rateCard(true));
+}
+function flip() {
+  const f = document.getElementById("flash");
+  if (f && f.classList.toggle("flipped")) autoSay(cardItem, true);
+}
+function rateCard(ok) {
+  record(state.deck === "mpps" ? "card" : "ccard", cardItem.id, ok);
+  markIntroduced(cardItem);
+  renderProgress(); nextCard();
+}
+
+/* ---------- browse ---------- */
+const PARTIES = ["All", "PC", "NDP", "Liberal", "Green", "Independent", "Speaker"];
+let browseParty = "All";
+function renderPartyChips() {
+  const row = document.getElementById("party-row");
+  row.innerHTML = "";
+  for (const p of PARTIES) {
+    const n = MPPS.filter(m => m.party === p).length;
+    row.append(chip("party-" + p, p === "All" ? "All parties" : `${p} ${n}`, browseParty === p, () => {
+      browseParty = p; renderPartyChips(); renderGrid();
+    }));
+  }
+}
+function renderGrid() {
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const pool = state.deck === "mpps" ? MPPS : MINISTERS;
+  const list = pool.filter(m =>
+    (browseParty === "All" || m.party === browseParty) &&
+    (!q || (m.name + " " + m.riding + " " + (m.roles || []).join(" ")).toLowerCase().includes(q)));
+  const modes = activeModes().filter(md => md !== "port-min");
+  document.getElementById("browse-count").textContent = `${list.length} shown · green edge = known in every question type`;
+  const card = m => `
+    <div class="m${personKnown(m, modes) ? " mastered" : ""}">
+      ${photoHTML(m.photo, m.name)}
+      <div class="info">
+        ${nameHTML(m, "b")}
+        ${ridingHTML(m)}
+        ${partyHTML(m)}
+        ${rolesHTML(m)}
+      </div>
+    </div>`;
+  const sections = ["PC", "NDP", "Liberal", "Green", "Independent", "Speaker"].map(p => {
+    const members = list.filter(m => m.party === p).sort((a, b) => rank(a) - rank(b));
+    if (!members.length) return "";
+    const info = PARTY_INFO[p];
+    return `<section class="sec">
+      <h3><span class="party" data-p="${p}">${esc(info.label)}</span><span class="sec-n">${members.length}${info.note ? " · " + esc(info.note) : ""}</span></h3>
+      <div class="grid">${members.map(card).join("")}</div>
+    </section>`;
+  });
+  document.getElementById("grid").innerHTML = sections.join("");
+}
+
+/* ---------- shell ---------- */
+function saveState() {
+  store.set("view", state.view); store.set("deck", state.deck); store.set("mode", state.mode);
+  store.set("pace", state.pace); store.set("group-mpps", state.group.mpps); store.set("group-cabinet", state.group.cabinet);
+}
+function refresh() {
+  document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === state.view)));
+  for (const v of ["quiz", "cards", "browse"]) document.getElementById("view-" + v).hidden = state.view !== v;
+  document.getElementById("party-row").hidden = state.deck !== "mpps";
+  renderControls(); renderProgress();
+  if (state.view === "quiz") { session = { right: 0, asked: 0 }; nextQuestion(); }
+  if (state.view === "cards") nextCard();
+  if (state.view === "browse") { renderPartyChips(); renderGrid(); }
+}
+document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { state.view = b.dataset.view; saveState(); refresh(); }));
+document.getElementById("group").addEventListener("change", e => { state.group[state.deck] = e.target.value; saveState(); refresh(); });
+document.getElementById("search").addEventListener("input", renderGrid);
+document.addEventListener("click", e => {
+  const b = e.target.closest?.("[data-say]");
+  if (!b) return;
+  e.stopPropagation(); e.preventDefault();
+  speak(b.dataset.say);
+}, true);
+document.getElementById("batch-sel").addEventListener("change", e => setBatch(+e.target.value));
+document.getElementById("batch-prev").addEventListener("click", () => setBatch(batchIndex() - 1));
+document.getElementById("batch-next").addEventListener("click", () => setBatch(batchIndex() + 1));
+document.getElementById("batch-sheet").addEventListener("click", showSheet);
+
+document.addEventListener("keydown", e => {
+  if (e.target.matches("input, select")) return;
+  if (state.view === "quiz") {
+    if (!answered && /^[1-4]$/.test(e.key)) choose(+e.key - 1);
+    else if (e.key === "Enter") {
+      const btn = document.getElementById("intro-next") || (answered && document.getElementById("next-btn"));
+      if (btn) { e.preventDefault(); btn.click(); }
+    }
+  } else if (state.view === "cards") {
+    if (e.key === " ") { e.preventDefault(); flip(); }
+    else if (e.key === "ArrowLeft") rateCard(false);
+    else if (e.key === "ArrowRight") rateCard(true);
+  }
+});
+
+function wireReset() {
+  const wrap = document.getElementById("reset-wrap");
+  document.getElementById("reset").addEventListener("click", () => {
+    wrap.innerHTML = `<span class="confirm">Erase all progress? <button class="linkish" id="reset-yes">Erase</button> <button class="linkish" id="reset-no">Keep</button></span>`;
+    document.getElementById("reset-yes").addEventListener("click", () => { stats = {}; store.set("stats", stats); restore(); refresh(); });
+    document.getElementById("reset-no").addEventListener("click", restore);
+  });
+  function restore() { wrap.innerHTML = `<button class="linkish" id="reset">Reset progress</button>`; wireReset(); }
+}
+wireReset();
+try { if (matchMedia("(min-width: 700px)").matches) document.getElementById("settings").open = true; } catch {}
+refresh();
+</script>

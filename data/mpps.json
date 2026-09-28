@@ -1,0 +1,746 @@
+[
+ {
+  "name": "Rob Cerjanec",
+  "riding": "Ajax",
+  "party": "Liberal",
+  "photo": "photos/rob-cerjanec.jpg"
+ },
+ {
+  "name": "Bill Rosenberg",
+  "riding": "Algoma-Manitoulin",
+  "party": "PC",
+  "photo": "photos/bill-rosenberg.jpg"
+ },
+ {
+  "name": "Michael Parsa",
+  "riding": "Aurora-Oak Ridges-Richmond Hill",
+  "party": "PC",
+  "photo": "photos/michael-parsa.jpg"
+ },
+ {
+  "name": "Andrea Khanjin",
+  "riding": "Barrie-Innisfil",
+  "party": "PC",
+  "photo": "photos/andrea-khanjin.jpg"
+ },
+ {
+  "name": "Doug Downey",
+  "riding": "Barrie-Springwater-Oro-Medonte",
+  "party": "PC",
+  "photo": "photos/doug-downey.jpg"
+ },
+ {
+  "name": "Tyler Allsopp",
+  "riding": "Bay of Quinte",
+  "party": "PC",
+  "photo": "photos/tyler-allsopp.jpg"
+ },
+ {
+  "name": "Mary-Margaret McMahon",
+  "riding": "Beaches-East York",
+  "party": "Liberal",
+  "photo": "photos/mary-margaret-mcmahon.jpg"
+ },
+ {
+  "name": "Charmaine Williams",
+  "riding": "Brampton Centre",
+  "party": "PC",
+  "photo": "photos/charmaine-williams.jpg"
+ },
+ {
+  "name": "Hardeep Singh Grewal",
+  "riding": "Brampton East",
+  "party": "PC",
+  "photo": "photos/hardeep-singh-grewal.jpg"
+ },
+ {
+  "name": "Graham McGregor",
+  "riding": "Brampton North",
+  "party": "PC",
+  "photo": "photos/graham-mcgregor.jpg"
+ },
+ {
+  "name": "Prabmeet Singh Sarkaria",
+  "riding": "Brampton South",
+  "party": "PC",
+  "photo": "photos/prabmeet-singh-sarkaria.jpg"
+ },
+ {
+  "name": "Amarjot Sandhu",
+  "riding": "Brampton West",
+  "party": "PC",
+  "photo": "photos/amarjot-sandhu.jpg"
+ },
+ {
+  "name": "Will Bouma",
+  "riding": "Brantford-Brant",
+  "party": "PC",
+  "photo": "photos/will-bouma.jpg"
+ },
+ {
+  "name": "Paul Vickers",
+  "riding": "Bruce-Grey-Owen Sound",
+  "party": "PC",
+  "photo": "photos/paul-vickers.jpg"
+ },
+ {
+  "name": "Natalie Pierre",
+  "riding": "Burlington",
+  "party": "PC",
+  "photo": "photos/natalie-pierre.jpg"
+ },
+ {
+  "name": "Brian Riddell",
+  "riding": "Cambridge",
+  "party": "PC",
+  "photo": "photos/brian-riddell.jpg"
+ },
+ {
+  "name": "George Darouze",
+  "riding": "Carleton",
+  "party": "PC",
+  "photo": "photos/george-darouze.jpg"
+ },
+ {
+  "name": "Trevor Jones",
+  "riding": "Chatham-Kent-Leamington",
+  "party": "PC",
+  "photo": "photos/trevor-jones.jpg"
+ },
+ {
+  "name": "Marit Stiles",
+  "riding": "Davenport",
+  "party": "NDP",
+  "photo": "photos/marit-stiles.jpg"
+ },
+ {
+  "name": "Adil Shamji",
+  "riding": "Don Valley East",
+  "party": "Liberal",
+  "photo": "photos/adil-shamji.jpg"
+ },
+ {
+  "name": "Jonathan Tsao",
+  "riding": "Don Valley North",
+  "party": "Liberal",
+  "photo": "photos/jonathan-tsao.jpg"
+ },
+ {
+  "name": "Stephanie Bowman",
+  "riding": "Don Valley West",
+  "party": "Liberal",
+  "photo": "photos/stephanie-bowman.jpg"
+ },
+ {
+  "name": "Sylvia Jones",
+  "riding": "Dufferin-Caledon",
+  "party": "PC",
+  "photo": "photos/sylvia-jones.jpg"
+ },
+ {
+  "name": "Todd McCarthy",
+  "riding": "Durham",
+  "party": "PC",
+  "photo": "photos/todd-mccarthy.jpg"
+ },
+ {
+  "name": "Michelle Cooper",
+  "riding": "Eglinton-Lawrence",
+  "party": "PC",
+  "photo": "photos/michelle-cooper.jpg"
+ },
+ {
+  "name": "Rob Flack",
+  "riding": "Elgin-Middlesex-London",
+  "party": "PC",
+  "photo": "photos/rob-flack.jpg"
+ },
+ {
+  "name": "Anthony Leardi",
+  "riding": "Essex",
+  "party": "PC",
+  "photo": "photos/anthony-leardi.jpg"
+ },
+ {
+  "name": "Kinga Surma",
+  "riding": "Etobicoke Centre",
+  "party": "PC",
+  "photo": "photos/kinga-surma.jpg"
+ },
+ {
+  "name": "Doug Ford",
+  "riding": "Etobicoke North",
+  "party": "PC",
+  "photo": "photos/doug-ford.jpg"
+ },
+ {
+  "name": "Lee Fairclough",
+  "riding": "Etobicoke-Lakeshore",
+  "party": "Liberal",
+  "photo": "photos/lee-fairclough.jpg"
+ },
+ {
+  "name": "Donna Skelly",
+  "riding": "Flamborough-Glanbrook",
+  "party": "Speaker",
+  "photo": "photos/donna-skelly.jpg"
+ },
+ {
+  "name": "Stéphane Sarrazin",
+  "riding": "Glengarry-Prescott-Russell",
+  "party": "PC",
+  "photo": "photos/stephane-sarrazin.jpg"
+ },
+ {
+  "name": "Mike Schreiner",
+  "riding": "Guelph",
+  "party": "Green",
+  "photo": "photos/mike-schreiner.jpg"
+ },
+ {
+  "name": "Bobbi Ann Brady",
+  "riding": "Haldimand-Norfolk",
+  "party": "Independent",
+  "photo": "photos/bobbi-ann-brady.jpg"
+ },
+ {
+  "name": "Laurie Scott",
+  "riding": "Haliburton-Kawartha Lakes-Brock",
+  "party": "PC",
+  "photo": "photos/laurie-scott.jpg"
+ },
+ {
+  "name": "Robin Lennox",
+  "riding": "Hamilton Centre",
+  "party": "NDP",
+  "photo": "photos/robin-lennox.jpg"
+ },
+ {
+  "name": "Jeff Beattie",
+  "riding": "Hamilton East-Stoney Creek",
+  "party": "PC",
+  "photo": "photos/jeff-beattie.jpg"
+ },
+ {
+  "name": "Monica Ciriello",
+  "riding": "Hamilton Mountain",
+  "party": "PC",
+  "photo": "photos/monica-ciriello.jpg"
+ },
+ {
+  "name": "Sandy Shaw",
+  "riding": "Hamilton West-Ancaster-Dundas",
+  "party": "NDP",
+  "photo": "photos/sandy-shaw.jpg"
+ },
+ {
+  "name": "Ric Bresee",
+  "riding": "Hastings-Lennox and Addington",
+  "party": "PC",
+  "photo": "photos/ric-bresee.jpg"
+ },
+ {
+  "name": "Tom Rakocevic",
+  "riding": "Humber River-Black Creek",
+  "party": "NDP",
+  "photo": "photos/tom-rakocevic.jpg"
+ },
+ {
+  "name": "Lisa Thompson",
+  "riding": "Huron-Bruce",
+  "party": "PC",
+  "photo": "photos/lisa-thompson.jpg"
+ },
+ {
+  "name": "Karen McCrimmon",
+  "riding": "Kanata-Carleton",
+  "party": "Liberal",
+  "photo": "photos/karen-mccrimmon.jpg"
+ },
+ {
+  "name": "Greg Rickford",
+  "riding": "Kenora-Rainy River",
+  "party": "PC",
+  "photo": "photos/greg-rickford.jpg"
+ },
+ {
+  "name": "Sol Mamakwa",
+  "riding": "Kiiwetinoong",
+  "party": "NDP",
+  "photo": "photos/sol-mamakwa.jpg"
+ },
+ {
+  "name": "Ted Hsu",
+  "riding": "Kingston and the Islands",
+  "party": "Liberal",
+  "photo": "photos/ted-hsu.jpg"
+ },
+ {
+  "name": "Stephen Lecce",
+  "riding": "King-Vaughan",
+  "party": "PC",
+  "photo": "photos/stephen-lecce.jpg"
+ },
+ {
+  "name": "Aislinn Clancy",
+  "riding": "Kitchener Centre",
+  "party": "Green",
+  "photo": "photos/aislinn-clancy.jpg"
+ },
+ {
+  "name": "Jess Dixon",
+  "riding": "Kitchener South-Hespeler",
+  "party": "PC",
+  "photo": "photos/jess-dixon.jpg"
+ },
+ {
+  "name": "Mike Harris",
+  "riding": "Kitchener-Conestoga",
+  "party": "PC",
+  "photo": "photos/mike-harris.jpg"
+ },
+ {
+  "name": "Steve Pinsonneault",
+  "riding": "Lambton-Kent-Middlesex",
+  "party": "PC",
+  "photo": "photos/steve-pinsonneault.jpg"
+ },
+ {
+  "name": "John Jordan",
+  "riding": "Lanark-Frontenac-Kingston",
+  "party": "PC",
+  "photo": "photos/john-jordan.jpg"
+ },
+ {
+  "name": "Steve Clark",
+  "riding": "Leeds-Grenville-Thousand Islands and Rideau Lakes",
+  "party": "PC",
+  "photo": "photos/steve-clark.jpg"
+ },
+ {
+  "name": "Terence Kernaghan",
+  "riding": "London North Centre",
+  "party": "NDP",
+  "photo": "photos/terence-kernaghan.jpg"
+ },
+ {
+  "name": "Peggy Sattler",
+  "riding": "London West",
+  "party": "NDP",
+  "photo": "photos/peggy-sattler.jpg"
+ },
+ {
+  "name": "Teresa Armstrong",
+  "riding": "London-Fanshawe",
+  "party": "NDP",
+  "photo": "photos/teresa-armstrong.jpg"
+ },
+ {
+  "name": "Paul Calandra",
+  "riding": "Markham-Stouffville",
+  "party": "PC",
+  "photo": "photos/paul-calandra.jpg"
+ },
+ {
+  "name": "Logan Kanapathi",
+  "riding": "Markham-Thornhill",
+  "party": "PC",
+  "photo": "photos/logan-kanapathi.jpg"
+ },
+ {
+  "name": "Billy Pang",
+  "riding": "Markham-Unionville",
+  "party": "PC",
+  "photo": "photos/billy-pang.jpg"
+ },
+ {
+  "name": "Zee Hamid",
+  "riding": "Milton",
+  "party": "PC",
+  "photo": "photos/zee-hamid.jpg"
+ },
+ {
+  "name": "Natalia Kusendova-Bashta",
+  "riding": "Mississauga Centre",
+  "party": "PC",
+  "photo": "photos/natalia-kusendova-bashta.jpg"
+ },
+ {
+  "name": "Silvia Gualtieri",
+  "riding": "Mississauga East-Cooksville",
+  "party": "PC",
+  "photo": "photos/silvia-gualtieri.jpg"
+ },
+ {
+  "name": "Sheref Sabawy",
+  "riding": "Mississauga-Erin Mills",
+  "party": "PC",
+  "photo": "photos/sheref-sabawy.jpg"
+ },
+ {
+  "name": "Rudy Cuzzetto",
+  "riding": "Mississauga-Lakeshore",
+  "party": "PC",
+  "photo": "photos/rudy-cuzzetto.jpg"
+ },
+ {
+  "name": "Deepak Anand",
+  "riding": "Mississauga-Malton",
+  "party": "PC",
+  "photo": "photos/deepak-anand.jpg"
+ },
+ {
+  "name": "Nina Tangri",
+  "riding": "Mississauga-Streetsville",
+  "party": "PC",
+  "photo": "photos/nina-tangri.jpg"
+ },
+ {
+  "name": "Guy Bourgouin",
+  "riding": "Mushkegowuk-James Bay",
+  "party": "NDP",
+  "photo": "photos/guy-bourgouin.jpg"
+ },
+ {
+  "name": "Tyler Watt",
+  "riding": "Nepean",
+  "party": "Liberal",
+  "photo": "photos/tyler-watt.jpg"
+ },
+ {
+  "name": "Dawn Gallagher Murphy",
+  "riding": "Newmarket-Aurora",
+  "party": "PC",
+  "photo": "photos/dawn-gallagher-murphy.jpg"
+ },
+ {
+  "name": "Jeff Burch",
+  "riding": "Niagara Centre",
+  "party": "NDP",
+  "photo": "photos/jeff-burch.jpg"
+ },
+ {
+  "name": "Wayne Gates",
+  "riding": "Niagara Falls",
+  "party": "NDP",
+  "photo": "photos/wayne-gates.jpg"
+ },
+ {
+  "name": "Sam Oosterhoff",
+  "riding": "Niagara West",
+  "party": "PC",
+  "photo": "photos/sam-oosterhoff.jpg"
+ },
+ {
+  "name": "France Gélinas",
+  "riding": "Nickel Belt",
+  "party": "NDP",
+  "photo": "photos/france-gelinas.jpg"
+ },
+ {
+  "name": "Vic Fedeli",
+  "riding": "Nipissing",
+  "party": "PC",
+  "photo": "photos/vic-fedeli.jpg"
+ },
+ {
+  "name": "David Piccini",
+  "riding": "Northumberland-Peterborough South",
+  "party": "PC",
+  "photo": "photos/david-piccini.jpg"
+ },
+ {
+  "name": "Stephen Crawford",
+  "riding": "Oakville",
+  "party": "PC",
+  "photo": "photos/stephen-crawford.jpg"
+ },
+ {
+  "name": "Effie Triantafilopoulos",
+  "riding": "Oakville North-Burlington",
+  "party": "PC",
+  "photo": "photos/effie-triantafilopoulos.jpg"
+ },
+ {
+  "name": "Stephen Blais",
+  "riding": "Orléans",
+  "party": "Liberal",
+  "photo": "photos/stephen-blais.jpg"
+ },
+ {
+  "name": "Jennifer French",
+  "riding": "Oshawa",
+  "party": "NDP",
+  "photo": "photos/jennifer-french.jpg"
+ },
+ {
+  "name": "Catherine McKenney",
+  "riding": "Ottawa Centre",
+  "party": "NDP",
+  "photo": "photos/catherine-mckenney.jpg"
+ },
+ {
+  "name": "John Fraser",
+  "riding": "Ottawa South",
+  "party": "Liberal",
+  "photo": "photos/john-fraser.jpg"
+ },
+ {
+  "name": "Lucille Collard",
+  "riding": "Ottawa-Vanier",
+  "party": "Liberal",
+  "photo": "photos/lucille-collard.jpg"
+ },
+ {
+  "name": "Chandra Pasma",
+  "riding": "Ottawa West-Nepean",
+  "party": "NDP",
+  "photo": "photos/chandra-pasma.jpg"
+ },
+ {
+  "name": "Ernie Hardeman",
+  "riding": "Oxford",
+  "party": "PC",
+  "photo": "photos/ernie-hardeman.jpg"
+ },
+ {
+  "name": "Alexa Gilmour",
+  "riding": "Parkdale-High Park",
+  "party": "NDP",
+  "photo": "photos/alexa-gilmour.jpg"
+ },
+ {
+  "name": "Graydon Smith",
+  "riding": "Parry Sound-Muskoka",
+  "party": "PC",
+  "photo": "photos/graydon-smith.jpg"
+ },
+ {
+  "name": "Matthew Rae",
+  "riding": "Perth-Wellington",
+  "party": "PC",
+  "photo": "photos/matthew-rae.jpg"
+ },
+ {
+  "name": "Dave Smith",
+  "riding": "Peterborough-Kawartha",
+  "party": "PC",
+  "photo": "photos/dave-smith.jpg"
+ },
+ {
+  "name": "Peter Bethlenfalvy",
+  "riding": "Pickering-Uxbridge",
+  "party": "PC",
+  "photo": "photos/peter-bethlenfalvy.jpg"
+ },
+ {
+  "name": "Billy Denault",
+  "riding": "Renfrew-Nipissing-Pembroke",
+  "party": "PC",
+  "photo": "photos/billy-denault.jpg"
+ },
+ {
+  "name": "Daisy Wai",
+  "riding": "Richmond Hill",
+  "party": "PC",
+  "photo": "photos/daisy-wai.jpg"
+ },
+ {
+  "name": "Robert Bailey",
+  "riding": "Sarnia-Lambton",
+  "party": "PC",
+  "photo": "photos/robert-bailey.jpg"
+ },
+ {
+  "name": "Chris Scott",
+  "riding": "Sault Ste. Marie",
+  "party": "Independent",
+  "photo": "photos/chris-scott.jpg"
+ },
+ {
+  "name": "David Smith",
+  "riding": "Scarborough Centre",
+  "party": "PC",
+  "photo": "photos/david-smith.jpg"
+ },
+ {
+  "name": "Raymond Cho",
+  "riding": "Scarborough North",
+  "party": "PC",
+  "photo": "photos/raymond-cho.jpg"
+ },
+ {
+  "name": "Fatima Shaban",
+  "riding": "Scarborough Southwest",
+  "party": "NDP",
+  "photo": "photos/fatima-shaban.jpg"
+ },
+ {
+  "name": "Aris Babikian",
+  "riding": "Scarborough-Agincourt",
+  "party": "PC",
+  "photo": "photos/aris-babikian.jpg"
+ },
+ {
+  "name": "Andrea Hazell",
+  "riding": "Scarborough-Guildwood",
+  "party": "Liberal",
+  "photo": "photos/andrea-hazell.jpg"
+ },
+ {
+  "name": "Vijay Thanigasalam",
+  "riding": "Scarborough-Rouge Park",
+  "party": "PC",
+  "photo": "photos/vijay-thanigasalam.jpg"
+ },
+ {
+  "name": "Jill Dunlop",
+  "riding": "Simcoe North",
+  "party": "PC",
+  "photo": "photos/jill-dunlop.jpg"
+ },
+ {
+  "name": "Brian Saunderson",
+  "riding": "Simcoe-Grey",
+  "party": "PC",
+  "photo": "photos/brian-saunderson.jpg"
+ },
+ {
+  "name": "Chris Glover",
+  "riding": "Spadina-Fort York",
+  "party": "NDP",
+  "photo": "photos/chris-glover.jpg"
+ },
+ {
+  "name": "Jennifer (Jennie) Stevens",
+  "riding": "St. Catharines",
+  "party": "NDP",
+  "photo": "photos/jennifer-jennie-stevens.jpg"
+ },
+ {
+  "name": "Nolan Quinn",
+  "riding": "Stormont-Dundas-South Glengarry",
+  "party": "PC",
+  "photo": "photos/nolan-quinn.jpg"
+ },
+ {
+  "name": "Jamie West",
+  "riding": "Sudbury",
+  "party": "NDP",
+  "photo": "photos/jamie-west.jpg"
+ },
+ {
+  "name": "Laura Smith",
+  "riding": "Thornhill",
+  "party": "PC",
+  "photo": "photos/laura-smith.jpg"
+ },
+ {
+  "name": "Kevin Holland",
+  "riding": "Thunder Bay-Atikokan",
+  "party": "PC",
+  "photo": "photos/kevin-holland.jpg"
+ },
+ {
+  "name": "Lise Vaugeois",
+  "riding": "Thunder Bay-Superior North",
+  "party": "NDP",
+  "photo": "photos/lise-vaugeois.jpg"
+ },
+ {
+  "name": "John Vanthof",
+  "riding": "Timiskaming-Cochrane",
+  "party": "NDP",
+  "photo": "photos/john-vanthof.jpg"
+ },
+ {
+  "name": "George Pirie",
+  "riding": "Timmins",
+  "party": "PC",
+  "photo": "photos/george-pirie.jpg"
+ },
+ {
+  "name": "Kristyn Wong-Tam",
+  "riding": "Toronto Centre",
+  "party": "NDP",
+  "photo": "photos/kristyn-wong-tam.jpg"
+ },
+ {
+  "name": "Peter Tabuns",
+  "riding": "Toronto-Danforth",
+  "party": "NDP",
+  "photo": "photos/peter-tabuns.jpg"
+ },
+ {
+  "name": "Stephanie Smyth",
+  "riding": "Toronto-St. Paul's",
+  "party": "Liberal",
+  "photo": "photos/stephanie-smyth.jpg"
+ },
+ {
+  "name": "Jessica Bell",
+  "riding": "University-Rosedale",
+  "party": "NDP",
+  "photo": "photos/jessica-bell.jpg"
+ },
+ {
+  "name": "Michael Tibollo",
+  "riding": "Vaughan-Woodbridge",
+  "party": "PC",
+  "photo": "photos/michael-tibollo.jpg"
+ },
+ {
+  "name": "Catherine Fife",
+  "riding": "Waterloo",
+  "party": "NDP",
+  "photo": "photos/catherine-fife.jpg"
+ },
+ {
+  "name": "Joseph Racinsky",
+  "riding": "Wellington-Halton Hills",
+  "party": "PC",
+  "photo": "photos/joseph-racinsky.jpg"
+ },
+ {
+  "name": "Lorne Coe",
+  "riding": "Whitby",
+  "party": "PC",
+  "photo": "photos/lorne-coe.jpg"
+ },
+ {
+  "name": "Stan Cho",
+  "riding": "Willowdale",
+  "party": "PC",
+  "photo": "photos/stan-cho.jpg"
+ },
+ {
+  "name": "Lisa Gretzky",
+  "riding": "Windsor West",
+  "party": "NDP",
+  "photo": "photos/lisa-gretzky.jpg"
+ },
+ {
+  "name": "Andrew Dowie",
+  "riding": "Windsor-Tecumseh",
+  "party": "PC",
+  "photo": "photos/andrew-dowie.jpg"
+ },
+ {
+  "name": "Michael Kerzner",
+  "riding": "York Centre",
+  "party": "PC",
+  "photo": "photos/michael-kerzner.jpg"
+ },
+ {
+  "name": "Susan Lahey",
+  "riding": "York-Simcoe",
+  "party": "PC",
+  "photo": "photos/susan-lahey.jpg"
+ },
+ {
+  "name": "Mohamed Firin",
+  "riding": "York South-Weston",
+  "party": "PC",
+  "photo": "photos/mohamed-firin.jpg"
+ }
+]
