@@ -195,8 +195,8 @@ nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)
       <p>124 members of the 44th Parliament of Ontario, and the cabinet</p>
     </div>
     <nav class="tabs" role="tablist">
-      <button role="tab" id="tab-quiz" aria-selected="true" data-view="quiz">Quiz</button>
-      <button role="tab" id="tab-cards" aria-selected="false" data-view="cards">Flashcards</button>
+      <button role="tab" id="tab-cards" aria-selected="true" data-view="cards">Flashcards</button>
+      <button role="tab" id="tab-quiz" aria-selected="false" data-view="quiz">Quiz</button>
       <button role="tab" id="tab-browse" aria-selected="false" data-view="browse">Browse</button>
     </nav>
   </header>
@@ -224,8 +224,8 @@ nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)
   </div>
 
   <main>
-    <section id="view-quiz" class="stage"></section>
-    <section id="view-cards" class="stage" hidden></section>
+    <section id="view-cards" class="stage"></section>
+    <section id="view-quiz" class="stage" hidden></section>
     <section id="view-browse" hidden>
       <input class="search" id="search" type="search" placeholder="Search by name or riding" autocomplete="off">
       <div class="row" id="party-row" style="margin-top:10px"></div>
@@ -312,7 +312,7 @@ const MODES = {
 const DECKS = [{ id: "mpps", label: "All 124 MPPs" }, { id: "cabinet", label: "Cabinet (36)" }];
 
 let state = {
-  view: store.get("view", "quiz"),
+  view: "cards", /* always open on flashcards */
   deck: store.get("deck", "mpps"),
   mode: store.get("mode", "face-name"),
   pace: store.get("pace", "batch"),
@@ -781,7 +781,7 @@ function renderGrid() {
 
 /* ---------- shell ---------- */
 function saveState() {
-  store.set("view", state.view); store.set("deck", state.deck); store.set("mode", state.mode);
+  store.set("deck", state.deck); store.set("mode", state.mode);
   store.set("pace", state.pace);
 }
 function refresh() {

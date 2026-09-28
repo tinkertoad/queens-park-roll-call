@@ -11,12 +11,12 @@ on a phone, and progress is saved in the browser you use it in.
 
 ## What's in it
 
+- **Flashcards** (opens first): see a face, say the name out loud, tap "Show answer", then
+  answer "Did you know it?". "No, not yet" brings that person back sooner.
 - **Quiz**: four-choice questions. For MPPs: face → name (the default) and
   name → riding. For the cabinet: minister ↔ portfolio, face → portfolio and
   face → name. Wrong answers are chosen to be hard (other Scarborough ridings,
   other Stephens).
-- **Flashcards**: see a face, say the name out loud, tap "Show answer", then
-  answer "Did you know it?". "No, not yet" brings that person back sooner.
 - **Browse**: every member by party, searchable.
 - **Small batches**: one guided path, party by party, in fixed batches of 8.
   You stay on a batch until you choose to move on, and each new person is
