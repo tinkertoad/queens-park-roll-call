@@ -363,11 +363,8 @@ function markIntroduced(p) { stats["intro|" + p.id] = 1; store.set("stats", stat
 /* ---------- modes ---------- */
 const MODES = {
   mpps: [
-    { id: "mix", label: "Mixed" },
     { id: "face-name", label: "Face → name" },
-    { id: "face-riding", label: "Face → riding" },
     { id: "name-riding", label: "Name → riding" },
-    { id: "riding-name", label: "Riding → name" },
   ],
   cabinet: [
     { id: "cmix", label: "Mixed" },
@@ -382,7 +379,7 @@ const DECKS = [{ id: "mpps", label: "All 124 MPPs" }, { id: "cabinet", label: "C
 let state = {
   view: store.get("view", "quiz"),
   deck: store.get("deck", "mpps"),
-  mode: store.get("mode", "mix"),
+  mode: store.get("mode", "face-name"),
   pace: store.get("pace", "batch"),
   batch: store.get("batch", {}),
   autoSay: store.get("autoSay", false),
@@ -398,14 +395,14 @@ function itemsFor(mode) {
   return MPPS;
 }
 function concreteModes(mode) {
-  if (mode === "mix") return ["face-name", "face-riding", "name-riding", "riding-name"];
+  if (mode === "mpps-all") return ["face-name", "name-riding"];
   if (mode === "cmix") return ["min-port", "port-min", "face-port", "cface-name"];
   return [mode];
 }
 /* the question types that the current view is measuring */
 function activeModes() {
   if (state.view === "cards") return [state.deck === "mpps" ? "card" : "ccard"];
-  if (state.view === "browse") return concreteModes(state.deck === "mpps" ? "mix" : "cmix");
+  if (state.view === "browse") return concreteModes(state.deck === "mpps" ? "mpps-all" : "cmix");
   return concreteModes(state.mode);
 }
 function personKnown(p, modes) {
@@ -497,15 +494,9 @@ function buildQuestion({ mode, it }, active) {
     const [pool, full] = mode === "face-name" ? [mpPool, MPPS] : [minPool, MINISTERS];
     q.kicker = "Who is this?"; q.photo = it.photo; q.who = it;
     q.answer = it.name; q.opts = distractors(pool, it, x => x.name, simName, full).map(x => x.name);
-  } else if (mode === "face-riding") {
-    q.kicker = "Which riding?"; q.photo = it.photo; q.who = it;
-    q.answer = it.riding; q.opts = distractors(mpPool, it, x => x.riding, simRiding, MPPS).map(x => x.riding);
   } else if (mode === "name-riding") {
     q.kicker = "Which riding?"; q.text = it.name; q.who = it;
     q.answer = it.riding; q.opts = distractors(mpPool, it, x => x.riding, simRiding, MPPS).map(x => x.riding);
-  } else if (mode === "riding-name") {
-    q.kicker = "Who is the member for"; q.text = it.riding + "?"; q.who = it;
-    q.answer = it.name; q.opts = distractors(mpPool, it, x => x.name, simName, MPPS).map(x => x.name);
   } else if (mode === "min-port" || mode === "face-port") {
     q.kicker = "What is their portfolio?"; q.who = it;
     if (mode === "min-port") q.text = it.name; else q.photo = it.photo;
