@@ -85,6 +85,9 @@ nav.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink)
 .choices{display:grid;gap:8px;margin-top:18px}
 .choice{display:flex;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 14px;cursor:pointer;font-weight:500;min-height:52px}
 .choice:hover:not(:disabled){border-color:var(--ink-3)}
+.choices.parties{grid-template-columns:1fr 1fr}
+.choices.parties .party{font-size:15px;color:var(--ink)}
+.choices.parties .party::before{width:12px;height:12px}
 .choice .key{font:500 12px var(--data);color:var(--ink-3);border:1px solid var(--line);border-radius:5px;width:22px;height:22px;display:grid;place-items:center;flex:none}
 .choice.right{border-color:var(--good);background:var(--good-soft)}
 .choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
@@ -277,6 +280,7 @@ const PARTY_INFO = {
   Independent: { label: "Independent", note: "" },
   Speaker: { label: "Speaker", note: "" },
 };
+const PARTY_CHOICES = ["PC", "NDP", "Liberal", "Green", "Independent", "Speaker"];
 const ofParty = party => MPPS.filter(m => m.party === party).sort((a, b) => rank(a) - rank(b));
 /* the guided path goes party by party, smallest caucuses first so early batches finish quickly */
 const PATH_PARTIES = ["Speaker", "Green", "Independent", "Liberal", "NDP", "PC"];
@@ -310,6 +314,7 @@ const MODES = {
   mpps: [
     { id: "face-name", label: "Face → name" },
     { id: "name-riding", label: "Name → riding" },
+    { id: "name-party", label: "Name → party" },
   ],
   cabinet: [
     { id: "cmix", label: "Mixed" },
@@ -338,7 +343,7 @@ function itemsFor(mode) {
   return MPPS;
 }
 function concreteModes(mode) {
-  if (mode === "mpps-all") return ["face-name", "name-riding"];
+  if (mode === "mpps-all") return ["face-name", "name-riding", "name-party"];
   if (mode === "cmix") return ["min-port", "port-min", "face-port", "cface-name"];
   return [mode];
 }
@@ -440,6 +445,9 @@ function buildQuestion({ mode, it }, active) {
   } else if (mode === "name-riding") {
     q.kicker = "Which riding?"; q.text = it.name; q.who = it;
     q.answer = it.riding; q.opts = distractors(mpPool, it, x => x.riding, simRiding, MPPS).map(x => x.riding);
+  } else if (mode === "name-party") {
+    q.kicker = "Which party?"; q.text = it.name; q.who = it; q.parties = true;
+    q.answer = it.party;
   } else if (mode === "min-port" || mode === "face-port") {
     q.kicker = "What is their portfolio?"; q.who = it;
     if (mode === "min-port") q.text = it.name; else q.photo = it.photo;
@@ -450,7 +458,8 @@ function buildQuestion({ mode, it }, active) {
     q.answer = it.m.name;
     q.opts = distractors(minPool, it.m, x => x.name, simName, MINISTERS).map(x => x.name);
   }
-  q.choices = shuffle([q.answer, ...q.opts]);
+  /* parties always appear in the same order and colours, so their place becomes part of the memory */
+  q.choices = q.parties ? PARTY_CHOICES : shuffle([q.answer, ...q.opts]);
   return q;
 }
 
@@ -656,8 +665,8 @@ function nextQuestion() {
         ${q.photo ? photoHTML(q.photo, "Photo of a member") : ""}
         ${q.text ? `<p class="q${q.small || q.photo ? " small" : ""}">${esc(q.text)}</p>` : ""}
       </div>
-      <div class="choices">
-        ${q.choices.map((c, i) => `<button class="choice" id="choice-${i}" data-i="${i}"><span class="key">${i + 1}</span><span>${esc(c)}</span></button>`).join("")}
+      <div class="choices${q.parties ? " parties" : ""}">
+        ${q.choices.map((c, i) => `<button class="choice" id="choice-${i}" data-i="${i}"><span class="key">${i + 1}</span>${q.parties ? partyHTML({ party: c }) : `<span>${esc(c)}</span>`}</button>`).join("")}
       </div>
       <div id="fb"></div>
     </div>
@@ -838,7 +847,7 @@ document.getElementById("next-batch-btn").addEventListener("click", () => setBat
 document.addEventListener("keydown", e => {
   if (e.target.matches?.("input, select")) return;
   if (state.view === "quiz") {
-    if (!answered && /^[1-4]$/.test(e.key)) choose(+e.key - 1);
+    if (!answered && current && /^[1-9]$/.test(e.key) && +e.key <= current.choices.length) choose(+e.key - 1);
     else if (e.key === "Enter") {
       const btn = document.getElementById("intro-next") || (answered && document.getElementById("next-btn"));
       if (btn) { e.preventDefault(); btn.click(); }
